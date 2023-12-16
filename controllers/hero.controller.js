@@ -31,5 +31,19 @@ module.exports.updateHero = async (req, res, next) => {
 }
 
 module.exports.deleteHero = async (req, res, next) => {
-
+    try {
+        const {params: {heroId}} = req;
+        const deletedHero = await Hero.destroy({
+            where: {
+                id: heroId
+            }
+        });
+        if (deletedHero>0) {
+            return res.status(200).send('Hero was deleted!');
+        } else {
+            return res.status(204);
+        }
+    } catch (error) {
+        next(error)
+    }
 }
