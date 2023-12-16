@@ -9,6 +9,7 @@ app.use(bodyParser);
 app.post('/', HeroController.createHero);
 app.get('/', HeroController.getAllHeroes);
 app.get('/:heroId', HeroController.getOneHero);
+app.delete('/:heroId', HeroController.deleteHero);
 
 
 module.exports = app;
