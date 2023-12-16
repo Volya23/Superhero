@@ -27,7 +27,18 @@ module.exports.getOneHero = async (req, res, next) => {
     }
 }
 module.exports.updateHero = async (req, res, next) => {
-
+    try {
+        const {params: {heroId}, body} = req;
+        const updatedHero = await Hero.update(body, {
+            where: {
+                id: heroId
+            },
+            returning: true
+        });
+            res.status(200).send(updatedHero);
+    } catch (error) {
+        next(error)
+    }
 }
 
 module.exports.deleteHero = async (req, res, next) => {

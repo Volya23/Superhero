@@ -10,6 +10,7 @@ app.post('/', HeroController.createHero);
 app.get('/', HeroController.getAllHeroes);
 app.get('/:heroId', HeroController.getOneHero);
 app.delete('/:heroId', HeroController.deleteHero);
+app.put('/:heroId', HeroController.updateHero);
 
 
 module.exports = app;
