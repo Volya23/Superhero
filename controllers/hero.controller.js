@@ -44,3 +44,18 @@ module.exports.deleteHero = async (req, res, next) => {
         next(error);
     }
 }
+
+module.exports.createHeroImage = async (req, res, next) => {
+    try {
+        const {params:{heroId}, file: {filename}} = req;
+        const [rowCount, [addImg]] = await Hero.update({imagePath: filename}, {
+            where:{
+                id: heroId
+            },
+            returning: true
+        });
+        res.status(200).send(addImg);
+    } catch (error) {
+        next(error);
+    }
+}
