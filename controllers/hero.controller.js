@@ -6,55 +6,41 @@ module.exports.createHero = async (req, res, next) => {
         const result = await Hero.create(body);
         res.status(201).send(result);
     } catch (error) {
-        next(error)
+        next(error);
     }
 }
 module.exports.getAllHeroes = async (req, res, next) => {
     try {
-        const allHeroes = await Hero.findAll();
+        const allHeroes = await Hero.findAll({offset: 0, limit: 5});
         res.status(200).send(allHeroes);
     } catch (error) {
-        next(error)
+        next(error);
     }
 }
 module.exports.getOneHero = async (req, res, next) => {
     try {
-        const {params: {heroId}} = req;
-        const hero = await Hero.findByPk(heroId);
-        res.status(200).send(hero);
+        const {heroInstance} = req;
+        res.status(200).send(heroInstance);
     } catch (error) {
-        next(error)
+        next(error);
     }
 }
 module.exports.updateHero = async (req, res, next) => {
     try {
-        const {params: {heroId}, body} = req;
-        const updatedHero = await Hero.update(body, {
-            where: {
-                id: heroId
-            },
-            returning: true
-        });
-            res.status(200).send(updatedHero);
+        const {heroInstance, body} = req;
+        const updatedHero = await heroInstance.update(body);
+        res.status(200).send(updatedHero);
     } catch (error) {
-        next(error)
+        next(error);
     }
 }
 
 module.exports.deleteHero = async (req, res, next) => {
     try {
-        const {params: {heroId}} = req;
-        const deletedHero = await Hero.destroy({
-            where: {
-                id: heroId
-            }
-        });
-        if (deletedHero>0) {
-            return res.status(200).send('Hero was deleted!');
-        } else {
-            return res.status(204);
-        }
+        const {heroInstance} = req;
+        const deletedHero = await heroInstance.destroy();
+        res.status(200).send('Hero was deleted!');
     } catch (error) {
-        next(error)
+        next(error);
     }
 }

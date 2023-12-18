@@ -1,0 +1,13 @@
+POST http://localhost:5500/api/heroes HTTP/1.1
+Content-Type: application/json
+
+
+{
+  "nickname": "first men",
+  "realName": "Ricci Martin",
+  "originDescription": "The something is about description.",
+  "superpower": "superhuman beauty",
+  "catchPhrase": "Something true.",
+  "gender": "male",
+  "birthday": "1919-02-16"
+}
