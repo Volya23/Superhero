@@ -59,8 +59,12 @@ module.exports.getCountPowers = async (req, res, next) => {
 
 module.exports.updatePower = async (req, res, next) => {
     try {
-        const { params: {powerId}} = req;
-        const updatedPower = await Superpower.update(powerId);
+        const { params: {powerId}, body} = req;
+        const updatedPower = await Superpower.update(body, {
+            where: {
+                id: powerId
+            }
+        });
         res.status(200).send(updatedPower);
     } catch (error) {
         next(error);
