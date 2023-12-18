@@ -1,4 +1,5 @@
 const { Superpower, Hero } = require('../models');
+const {NotFoundError} = require('../errors/NotFoundError');
 
 module.exports.createPower = async (req, res, next) => {
     try {
@@ -23,6 +24,9 @@ module.exports.getOnePower = async (req, res, next) => {
     try {
         const {params: {powerId}} = req;
         const superpower = await Superpower.findByPk(powerId);
+        if (!superpower) {
+            res.status(404).send({NotFoundError});
+        }
         res.status(200).send(superpower);
     } catch (error) {
         next(error)

@@ -1,1 +1,1 @@
-GET http://localhost:5500/api/superpowers/sum/13 HTTP/1.1
+GET http://localhost:5500/api/superpowers/sum/200 HTTP/1.1
