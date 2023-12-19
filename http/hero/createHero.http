@@ -3,11 +3,11 @@ Content-Type: application/json
 
 
 {
-  "nickname": "first men",
-  "realName": "Ricci Martin",
+  "nickname": "Second men",
+  "realName": "Genri Martin",
   "originDescription": "The something is about description.",
   "superpower": "superhuman beauty",
   "catchPhrase": "Something true.",
   "gender": "male",
-  "birthday": "1919-02-16"
+  "birthday": "1919-09-16"
 }

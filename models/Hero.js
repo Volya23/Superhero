@@ -13,6 +13,9 @@ module.exports = (sequelize, DataTypes) => {
       Hero.hasMany(models.Superpower, {
         foreignKey: 'heroId'
       });
+      Hero.hasMany(models.Image, {
+        foreignKey: 'heroId'
+      });
     }
   }
   Hero.init({
