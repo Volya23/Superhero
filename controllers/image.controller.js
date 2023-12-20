@@ -10,6 +10,17 @@ module.exports.createImage = async (req, res, next) => {
         next(error);
     }
 }
+module.exports.addHeroToImage = async (req, res, next) => {
+    try {
+        const {heroInstance, params: {imageId}} = req;
+        const image = await Image.findByPk(imageId);
+        const result = await image.addHero(heroInstance);
+        res.status(200).send('The action was taken');
+    } catch (error) {
+        next(error);
+    }
+}
+
 module.exports.getHeroAllImages = async (req, res, next) => {
     try {
         const {heroInstance} = req;
@@ -20,61 +31,16 @@ module.exports.getHeroAllImages = async (req, res, next) => {
     }
 }
 
-module.exports.getOneImage = async (req, res, next) => {
-    try {
-        const {params: {imageId}} = req;
-        const image = await Image.findByPk(imageId);
-        if (!image) {
-            throw new NotFoundError ('The Subject Is Not Found');
-        }
-        res.status(200).send(image);
-    } catch (error) {
-        next(error)
-    }
-}
-
-module.exports.deleteImage = async (req, res, next) => {
-    try {
-        const {params:{imageId}} = req;
-        const deletedImage = await Image.destroy({
-            where: {
-                id: imageId
-            }
-        });
-        res.status(200).send('Image was deleted!');
-    } catch (error) {
-        next(error)
-    }
-}
-
-module.exports.updateImage = async (req, res, next) => {
-    try {
-        const { params: {imageId}, body} = req;
-        const updatedImage = await Image.update(body, {
-            where: {
-                id: imageId
-            }
-        });
-        res.status(200).send(updatedImage);
-    } catch (error) {
-        next(error);
-    }
-}
-
 module.exports.createHeroImage = async (req, res, next) => {
     try {
-        const {params: {heroId}, file: {filename}} = req;
-        
-        const [rowCount, [updatedImage]] = await Image.update({
-            imagePath: filename
-        }, {
+        const {params: {imageId}, file: {filename}} = req;
+        const [rowCount, [updatedImage]] = await Image.update({imagePath: filename}, {
             where: {
-                id: heroId
+                id: imageId
             },
             returning: true
         });
-
-        return res.send(updatedImage);
+        res.send(updatedImage);
     } catch (error) {
         next(error);
     }
@@ -82,9 +48,8 @@ module.exports.createHeroImage = async (req, res, next) => {
 
 module.exports.getCountImages = async (req, res, next) => {
     try {
-        const {heroInstance} = req;
-        const counts = await heroInstance.countImages();
-        res.status(200).send({counts});
+        const counts = await Image.findAll();
+        res.status(200).send(counts);
     } catch (error) {
         next(error);
     }

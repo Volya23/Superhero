@@ -10,17 +10,6 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      heroId: {
-        field: 'hero_id',
-        type: Sequelize.INTEGER,
-        allowNull: false,
-        references: {
-          model: {
-            tableName: 'heroes'
-          },
-          key: 'id'
-        },
-      },
     name: {
       type: Sequelize.STRING,
       allowNull: false
