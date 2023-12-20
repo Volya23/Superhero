@@ -13,7 +13,8 @@ module.exports = (sequelize, DataTypes) => {
       Hero.hasMany(models.Superpower, {
         foreignKey: 'heroId'
       });
-      Hero.hasMany(models.Image, {
+      Hero.belongsToMany(models.Image, {
+        through: 'heroes_to_images',
         foreignKey: 'heroId'
       });
     }
