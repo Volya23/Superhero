@@ -12,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
     
     static associate(models) {
       Image.belongsToMany(models.Hero, {
-        through: 'heroes_to_images',
+        through: 'hero_to_images',
         foreignKey: 'imageId'
       });
     }

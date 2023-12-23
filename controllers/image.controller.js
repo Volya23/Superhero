@@ -10,16 +10,6 @@ module.exports.createImage = async (req, res, next) => {
         next(error);
     }
 }
-module.exports.addHeroToImage = async (req, res, next) => {
-    try {
-        const {heroInstance, params: {imageId}} = req;
-        const image = await Image.findByPk(imageId);
-        const result = await image.addHero(heroInstance);
-        res.status(200).send('The action was taken');
-    } catch (error) {
-        next(error);
-    }
-}
 
 module.exports.getHeroAllImages = async (req, res, next) => {
     try {
@@ -31,7 +21,7 @@ module.exports.getHeroAllImages = async (req, res, next) => {
     }
 }
 
-module.exports.createHeroImage = async (req, res, next) => {
+module.exports.addImage = async (req, res, next) => {
     try {
         const {params: {imageId}, file: {filename}} = req;
         const [rowCount, [updatedImage]] = await Image.update({imagePath: filename}, {
@@ -46,10 +36,26 @@ module.exports.createHeroImage = async (req, res, next) => {
     }
 }
 
-module.exports.getCountImages = async (req, res, next) => {
+module.exports.deleteImage = async (req, res, next) => {
     try {
-        const counts = await Image.findAll();
-        res.status(200).send(counts);
+        const {params:{imageId}} = req;
+        const deletedImage = await Image.destroy({
+            where: {
+                id: imageId
+            }
+        });
+        res.status(200).send('Image was deleted!');
+    } catch (error) {
+        next(error)
+    }
+}
+
+module.exports.addImageToHero = async (req, res, next) => {
+    try {
+        const {heroInstance, params: {imageId}} = req;
+        const image = await Image.findByPk(imageId);
+        const result = await image.addHero(heroInstance);
+        return res.status(200).send('Image added to hero');
     } catch (error) {
         next(error);
     }

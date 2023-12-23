@@ -24,7 +24,6 @@ heroRouter.get('/', HeroController.getAllHeroes);
 heroRouter.get('/:heroId', getHeroInstance, HeroController.getOneHero);
 heroRouter.delete('/:heroId', getHeroInstance, HeroController.deleteHero);
 heroRouter.put('/:heroId', getHeroInstance, HeroController.updateHero);
-heroRouter.post('/:heroId', upload.single('heroImage'), HeroController.createHeroImage);
 
 
 module.exports = heroRouter;

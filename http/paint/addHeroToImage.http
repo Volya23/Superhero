@@ -1,1 +1,0 @@
-PUT http://localhost:5500/api/images/6/1 HTTP/1.1

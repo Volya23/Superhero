@@ -1,7 +1,7 @@
-POST http://localhost:5500/api/superpowers/7 HTTP/1.1
+POST http://localhost:5500/api/superpowers/19 HTTP/1.1
 Content-Type: application/json
 
 {
-    "name": "something jdfkvbm",
-    "description": "the power of the slgktlgkt"
+    "name": "lier",
+    "description": "the power is about lie"
 }
